@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ForumNet</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <style>
+    .carousel-img {
+      height: 70vh;
+    }
+
+    .footer {
+      position: static;
+      bottom: 0px;
+      margin-bottom: 0;
+      font-size: 18px;
+      width: 99vw;
+      height: 35px;
+      padding-top: 5px;
+    }
+
+    #btn-r{
+      display: none;
+    }
+
+    @media screen and (max-width: 1000px){
+      #btn-r{
+        display: block;
+      }
+      #btn{
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Links -->
+  <!--Unsplash Images CDN Link:  https://source.unsplash.com/random/?city,night -->
+
+  <!-- Modals -->
+  <div class="modal fade p-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Add Category</h1>
+        </div>
+        <span class="text-center text-danger d-none" id="emptyMessage">One or more input fields are empty!</span>
+        <div class="modal-body">
+          <form action="post">
+            <input type="text" class="form-control my-4" id="catNameInput" placeholder="Category Name" value="">
+            <input type="text" class="form-control my-4" id="catLeadInput" placeholder="Small Lead about Category" value="">
+            <textarea class="form-control my-4" id="catDescriptionInput" placeholder="Description for Category" value=""></textarea>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="catBtn">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">ForumNet</a>
+      <div class="d-flex">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="myDiv">
+        <a href="authentication.html" class="btn btn-dark m-2" id="btn-r">Join</a>
+      </div>
+    </div>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact Us</a>
+          </li>
+        </ul>
+        <div id="noLogin">
+          <a href="authentication.html" class="btn btn-lg btn-dark m-2" id="btn">Join</a>
+        </div>
+        <div id="Login">
+          <a href="" class="navbar-brand"></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Alerts -->
+  <div id="alerts"></div>
+
+  <!-- Carousel -->
+  <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="images/city.jpg" class="carousel-img d-block w-100" alt="..." />
+      </div>
+      <div class="carousel-item">
+        <img src="images/snow.jpg" class="carousel-img d-block w-100" alt="..." />
+      </div>
+      <div class="carousel-item">
+        <img src="images/moon.jpg" class="carousel-img d-block w-100" alt="..." />
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+      data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+      data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <!-- Cards -->
+  <div class="container">
+
+    <h1 class="text-center mt-3">- Browse Categories -</h1>
+
+    <div class="container-fluid">
+      <button class="btn btn-lg btn-dark w-75 d-none" id="addCatBtn" style="border-radius: 40px; margin: 20px 136px" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add Category
+      </button>
+      <div class="fs-2 text-center d-none" id="notLoggedinMsg">Login to Add Category.</div>
+    </div>
+
+    <div class="card-container d-flex flex-wrap w-100 justify-content-evenly" id="cardsContainer">
+      <div class="card m-5" style="width: 18rem;cursor: pointer;"> 
+          <img src="https://source.unsplash.com/random/400x400/?business" class="card-img-top" alt="..." />
+        <h5 class="card-title p-3 mb-0">Business Development Executive</h5>
+        <div class="card-body">
+          <p class="card-text">
+            Unlock opportunities and drive growth as a Business Development Executive. Join us in shaping strategic partnerships, expanding market reach, and fostering innovation in dynamic business landscapes.
+          </p>
+          <p class="description visually-hidden">Explore the dynamic world of business development, where every connection made and every strategy implemented can propel organizations to new heights. As a Business Development Executive, you'll navigate the intricacies of market analysis, relationship building, and strategic planning to identify and seize growth opportunities. Join a vibrant community of professionals dedicated to driving business success through creativity, tenacity, and strategic vision.</p>
+        </div>
+      </div>
+
+      <div class="card m-5" style="width: 18rem;cursor: pointer;">
+        <img src="https://source.unsplash.com/random/400x400/?website,developer" class="card-img-top" alt="..." />
+        <h5 class="card-title p-3 mb-0">Website Developer</h5>
+        <div class="card-body">
+          <p class="card-text">
+            Craft immersive digital experiences and bring ideas to life as a Website Developer. Join our community of innovators and creators in shaping the future of the online world.
+          </p>
+          <p class="description visually-hidden">Dive into the realm of web development and unleash your creativity as a Website Developer. From coding intricate designs to optimizing user experiences, explore the endless possibilities of crafting impactful digital platforms. Join a community of developers committed to pushing the boundaries of technology and transforming ideas into captivating online experiences.
+          </p>
+        </div>
+      </div>
+
+      <div class="card m-5" style="width: 18rem;cursor: pointer;">
+        <img src="https://source.unsplash.com/random/400x400/?programming,application" class="card-img-top" alt="..." />
+        <h5 class="card-title p-3 mb-0">Application Developer</h5>
+        <div class="card-body">
+          <p class="card-text">
+            Empower users and drive innovation with cutting-edge applications as an Application Developer. Join our community of tech enthusiasts and trailblazers in shaping the future of software solutions.
+          </p>
+          <p class="description visually-hidden">Venture into the dynamic field of application development and harness the power of technology to solve real-world challenges. As an Application Developer, you'll dive into the depths of coding, design, and user experience to create intuitive and groundbreaking software solutions. Join a community of developers dedicated to pushing the boundaries of innovation and making a lasting impact in the digital landscape.</p>
+        </div>
+      </div>
+
+      <div class="card m-5" style="width: 18rem;cursor: pointer;">
+        <img src="https://source.unsplash.com/random/400x400/?sales,marketing" class="card-img-top" alt="..." />
+        <h5 class="card-title p-3 mb-0">Sales and Marketing</h5>
+        <div class="card-body">
+          <p class="card-text">
+            Ignite growth and drive success through strategic sales and marketing initiatives. Join our community of dynamic professionals in shaping brand narratives, building customer relationships, and driving revenue.
+          </p>
+          <p class="description visually-hidden">Explore the dynamic intersection of sales and marketing, where strategy meets storytelling and relationships drive results. As a Sales and Marketing professional, you'll navigate the ever-evolving landscape of consumer behavior, digital trends, and market dynamics to create impactful campaigns and drive business growth. Join a community of passionate professionals committed to shaping brand narratives and driving success in the competitive marketplace.</p>
+        </div>
+      </div>
+
+      <div class="card m-5" style="width: 18rem;cursor: pointer;">
+        <img src="https://source.unsplash.com/random/400x400/?manager,office" class="card-img-top" alt="..." />
+        <h5 class="card-title p-3 mb-0">Human Resources Manager</h5>
+        <div class="card-body">
+          <p class="card-text">
+            Shape organizational culture and drive employee engagement as a Human Resources Manager. Join our community of HR professionals in shaping workplaces where talent thrives and innovation flourishes.
+          </p>
+          <p class="description visually-hidden">Enter the realm of Human Resources and become a catalyst for organizational success. As a Human Resources Manager, you'll lead initiatives to attract, develop, and retain top talent, while fostering a culture of inclusivity and growth. Dive into the strategic realms of talent management, organizational development, and employee relations, and join a community of HR professionals dedicated to shaping the future of work.</p>
+        </div>
+      </div>
+
+      <div class="card m-5" style="width: 18rem;cursor: pointer;">
+        <img src="https://source.unsplash.com/random/400x400/?online,security" class="card-img-top" alt="..." />
+        <h5 class="card-title p-3 mb-0">CyberSecurity</h5>
+        <div class="card-body">
+          <p class="card-text">
+            Protect data, safeguard systems, and defend against cyber threats as a Cybersecurity professional. Join our community of experts in safeguarding digital ecosystems and ensuring a secure future.
+          </p>
+          <p class="description visually-hidden">Enter the frontline of digital defense and become a guardian of cybersecurity. As a Cybersecurity professional, you'll delve into the realms of threat detection, incident response, and risk mitigation to safeguard organizations against cyber threats. Join a community of experts dedicated to staying ahead of cyber adversaries and protecting the integrity of digital assets in an ever-evolving threat landscape.</p>
+        </div>
+      </div>
+
+      <div class="card m-5" style="width: 18rem;cursor: pointer;">
+        <img src="https://source.unsplash.com/random/400x400/?networking,connections" class="card-img-top" alt="..." />
+        <h5 class="card-title p-3 mb-0">Networking</h5>
+        <div class="card-body">
+          <p class="card-text">
+            Build connections, expand horizons, and drive innovation as a Networking professional. Join our community of experts in shaping resilient and scalable network infrastructures.
+          </p>
+          <p class="description visually-hidden">Explore the interconnected world of networking and unlock the power of connectivity. As a Networking professional, you'll design, implement, and optimize network infrastructures to enable seamless communication and collaboration. Dive into the realms of routing, switching, and network security, and join a community of experts dedicated to building resilient and scalable networks that drive innovation and empower organizations.</p>
+        </div>
+      </div>
+
+      <div class="card m-5" style="width: 18rem;cursor: pointer;">
+        <img src="https://source.unsplash.com/random/400x400/?database" class="card-img-top" alt="..." />
+        <h5 class="card-title p-3 mb-0">Database Architect</h5>
+        <div class="card-body">
+          <p class="card-text">
+            Architect robust data ecosystems and unlock insights as a Database Architect. Join our community of data enthusiasts in shaping scalable and efficient database solutions.
+          </p>
+          <p class="description visually-hidden">Enter the realm of data architecture and become a master of databases. As a Database Architect, you'll design and optimize data structures to enable seamless access, storage, and retrieval of information. Dive into the realms of database management, data modeling, and performance optimization, and join a community of experts dedicated to harnessing the power of data to drive business success.</p>
+        </div>
+      </div>
+
+      <div class="card m-5" style="width: 18rem;cursor: pointer;">
+        <img src="https://source.unsplash.com/random/400x400/?computing,data" class="card-img-top" alt="..." />
+        <h5 class="card-title p-3 mb-0">Cloud Architect</h5>
+        <div class="card-body">
+          <p class="card-text">
+            Architect scalable and resilient cloud solutions as a Cloud Architect. Join our community of cloud enthusiasts in shaping the future of digital infrastructure.
+          </p>
+          <p class="description visually-hidden">Embark on a journey to the cloud and become a pioneer of digital transformation. As a Cloud Architect, you'll design and implement cloud-based solutions to enable agility, scalability, and innovation. Dive into the realms of cloud computing, virtualization, and automation, and join a community of experts dedicated to harnessing the power of the cloud to drive business growth and efficiency.</p>
+        </div>
+      </div>
+
+      <div class="card m-5" style="width: 18rem;cursor: pointer;">
+        <img src="https://source.unsplash.com/random/400x400/?computer,statistics" class="card-img-top" alt="..." />
+        <h5 class="card-title p-3 mb-0">DevOps Engineer</h5>
+        <div class="card-body">
+          <p class="card-text">
+            Empower collaboration, streamline workflows, and drive innovation as a DevOps Engineer. Join our community of tech enthusiasts and transformation catalysts in shaping the future of software delivery.
+          </p>
+          <p class="description visually-hidden">Step into the forefront of technology and become a driving force behind seamless software delivery. As a DevOps Engineer, you'll bridge the gap between development and operations, implementing automation, and fostering a culture of continuous integration and deployment. Dive into the realms of infrastructure as code, containerization, and orchestration, and join a community of experts dedicated to accelerating software delivery and maximizing business value..</p>
+        </div>
+      </div>
+
+      <div class="card m-5" style="width: 18rem;cursor: pointer;">
+        <img src="https://source.unsplash.com/random/400x400/?finance, documents" class="card-img-top" alt="..." />
+        <h5 class="card-title p-3 mb-0">Financial Consultant</h5>
+        <div class="card-body">
+          <p class="card-text">
+            Navigate the complexities of finance, empower informed decisions, and drive financial success as a Financial Consultant. Join our community of experts in shaping resilient financial strategies and securing prosperous futures.
+          </p>
+          <p class="description visually-hidden">Embark on a journey into the dynamic world of finance and become a trusted advisor to individuals and organizations alike. As a Financial Consultant, you'll analyze markets, assess risk, and develop tailored strategies to optimize financial performance. Dive into the realms of investment management, retirement planning, and wealth preservation, and join a community of experts dedicated to empowering clients to achieve their financial goals and secure their financial futures.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="footer bg-body-tertiary">
+    <p class="text-center">ForumNet | Copyright 2024</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script src="index.js"></script>
+  <script src="localStorageScript.js"></script>
+</body>
+
+</html>

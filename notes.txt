@@ -1,0 +1,25 @@
+Current Functions:
+    1.  Cannot Add Communities without logging in.
+    2.  Every Community has dynamic content i.e. thread page will load the content of the community-card clicked.
+    3.  Login / SignUp validations upto a certain level, like:
+            a.  username cannot have special characters.
+            b.  email must have "@" followed by predefined domain lists like "gmai.com, hotmail.com" etc.
+            c.  passwords must be atleast 8 characters long.
+    4.  Sessions are created for logged User.
+    5.  After Login user can add Communities and Join them, its data will be updated dynamically everywhere on website incase user takes an action.
+    6.  There are modals for adding Communities and joining them, they have some validations too.
+    7.  Each community has dynamic data i.e. If a user joined community 1, it will show his card in community 1 only, it   won't be visible in other communities.
+    8.  Users can see the communities they have joined in their user profile.
+    9.  Logout Functionality.
+    10. Users can Leave a community, its data will be updated everywhere on website, dynamically.
+    11. Some Login and Join functionalities, like displaying respective contentor buttons incase of login/logout or joining/leaving communities.
+
+    Note: Most of the data is stored using local storage so It won't be deleted / gone unless done manually. Session storage's data is valid as long as the session exists.
+
+Funtions not yet implemented :
+    1.  Fully Responsive Website.
+    2.  Strong Password Validations.
+    3.  Forgot Password Functionality.
+    4.  User data updating / changing.
+    5.  Generate accurate images for respective community category.
+    6.  No option to delete communities created by respective users.
